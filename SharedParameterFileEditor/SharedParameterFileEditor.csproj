@@ -1,0 +1,63 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Description>Edit and maintain Revit shared parameters files outside of Revit.</Description>
+    <Copyright>Copyright © Russell Green</Copyright>
+    <Version>1.0.5</Version>
+    <ApplicationIcon>spEditor.ico</ApplicationIcon>
+    <Authors>Russell Green</Authors>
+    <Company />
+    <Product>Shared Parameter File Editor</Product>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Extensions\NumberExtensions.cs" />
+    <Compile Remove="Models\BaseModel.cs" />
+    <Compile Remove="Models\GroupModel.cs" />
+    <Compile Remove="Models\ParameterModel.cs" />
+    <Compile Remove="Models\SharedParameterDefinitionFileModel.cs" />
+    <Compile Remove="SharedParametersDefinitionFile.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="PropertyChanged.Fody" Version="3.4.0" />
+    <PackageReference Include="Syncfusion.SfDataGrid.WinForms" Version="19.4.0.54" />
+    <PackageReference Include="Syncfusion.SfListView.WinForms" Version="19.4.0.54" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SharedParametersDefinitionFile\SharedParametersDefinitionFile.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="cd &quot;$(SolutionDir)&quot;&#xD;&#xA;SyncfusionLicenseRegister.bat PreBuild $(ProjectDir)Program.cs $(SolutionDir)SyncfusionKey.txt" />
+  </Target>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="cd &quot;$(SolutionDir)&quot;&#xD;&#xA;SyncfusionLicenseRegister.bat PostBuild $(ProjectDir)Program.cs $(SolutionDir)SyncfusionKey.txt" />
+  </Target>
+
+</Project>
