@@ -14,11 +14,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Extensions\NumberExtensions.cs" />
-    <Compile Remove="Models\BaseModel.cs" />
-    <Compile Remove="Models\GroupModel.cs" />
-    <Compile Remove="Models\ParameterModel.cs" />
-    <Compile Remove="Models\SharedParameterDefinitionFileModel.cs" />
     <Compile Remove="SharedParametersDefinitionFile.cs" />
   </ItemGroup>
 
@@ -30,11 +25,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SharedParametersDefinitionFile\SharedParametersDefinitionFile.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Extensions\" />
-    <Folder Include="Models\" />
   </ItemGroup>
 
   <ItemGroup>

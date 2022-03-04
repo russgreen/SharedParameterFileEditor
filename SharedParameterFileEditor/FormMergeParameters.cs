@@ -6,172 +6,168 @@ using Syncfusion.WinForms.DataGrid.Enums;
 using Syncfusion.WinForms.ListView.Enums;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SharedParameterFileEditor
+namespace SharedParameterFileEditor;
+
+public partial class FormMergeParameters : Form
 {
-    public partial class FormMergeParameters : Form
+    private IParameterListRequester _callingForm;
+
+    private List<ParameterModel> _parameterModels = new List<ParameterModel>();
+    private List<GroupModel> _groupModels = new List<GroupModel>();
+
+    private List<ParameterModel> _selectedParameterModels = new List<ParameterModel>();
+
+    private SharedParameterDefinitionFileModel _targetModel;
+    private SharedParameterDefinitionFileModel _sourceModel;
+
+    public FormMergeParameters()
     {
-        private IParameterListRequester _callingForm;
+        InitializeComponent();
+    }
 
-        private List<ParameterModel> _parameterModels = new List<ParameterModel>();
-        private List<GroupModel> _groupModels = new List<GroupModel>();
+    public FormMergeParameters(IParameterListRequester caller, SharedParameterDefinitionFileModel targetModel, SharedParameterDefinitionFileModel sourceModel)
+    {
+        InitializeComponent();
 
-        private List<ParameterModel> _selectedParameterModels = new List<ParameterModel>();
+        _callingForm = caller;
 
-        private SharedParameterDefinitionFileModel _targetModel;
-        private SharedParameterDefinitionFileModel _sourceModel;
+        _targetModel = targetModel;
+        _sourceModel = sourceModel;
 
-        public FormMergeParameters()
+        BuildParametersDataGrid();
+    }
+
+    private void BuildParametersDataGrid()
+    {
+        var types = Enum.GetValues(typeof(ParameterType)).Cast<ParameterType>().ToList();
+
+        GridComboBoxColumn gridComboBoxDataType = new GridComboBoxColumn
         {
-            InitializeComponent();
-        }
+            MappingName = "DataType",
+            HeaderText = "DataType",
+            DropDownStyle = DropDownStyle.DropDownList,
+            DataSource = types,
+            Width = 150,
+            AllowEditing = false
+        };
 
-        public FormMergeParameters(IParameterListRequester caller, SharedParameterDefinitionFileModel targetModel, SharedParameterDefinitionFileModel sourceModel)
+        GridComboBoxColumn gridComboBoxGroupSource = new GridComboBoxColumn
         {
-            InitializeComponent();
+            MappingName = "Group",
+            HeaderText = "Group",
+            ValueMember = "ID",
+            DisplayMember = "Name",
+            DropDownStyle = DropDownStyle.DropDownList,
+            DataSource = _sourceModel.Groups,
+            Width = 200,
+            AllowEditing = false
+        };
 
-            _callingForm = caller;
-
-            _targetModel = targetModel;
-            _sourceModel = sourceModel;
-
-            BuildParametersDataGrid();
-        }
-
-        private void BuildParametersDataGrid()
+        //TODO:  map the parameters at source
+        GridComboBoxColumn gridComboBoxGroupTarget = new GridComboBoxColumn
         {
-            var types = Enum.GetValues(typeof(ParameterType)).Cast<ParameterType>().ToList();
+            MappingName = "Group",
+            HeaderText = "Target Group",
+            ValueMember = "ID",
+            DisplayMember = "Name",
+            DropDownStyle = DropDownStyle.DropDownList,
+            DataSource = _targetModel.Groups,
+            Width = 200
+        };
 
-            GridComboBoxColumn gridComboBoxDataType = new GridComboBoxColumn
-            {
-                MappingName = "DataType",
-                HeaderText = "DataType",
-                DropDownStyle = DropDownStyle.DropDownList,
-                DataSource = types,
-                Width = 150,
-                AllowEditing = false
-            };
+        //GUID  NAME    DATATYPE    DATACATEGORY    GROUP   VISIBLE DESCRIPTION USERMODIFIABLE  HIDEWHENNOVALUE
+        this.sfDataGrid1.Columns.Clear();
+        this.sfDataGrid1.Columns.Add(new GridCheckBoxSelectorColumn() { MappingName = "SelectorColumn", HeaderText = string.Empty, AllowCheckBoxOnHeader = false, Width = 34, CheckBoxSize = new Size(14, 14) });
+        this.sfDataGrid1.Columns.Add(new GridTextColumn() { MappingName = "Guid", HeaderText = "GUID", MinimumWidth = 300, AllowEditing = false });
+        this.sfDataGrid1.Columns.Add(new GridTextColumn() { MappingName = "Name", HeaderText = "Name", MinimumWidth = 300, AllowEditing = false });
+        this.sfDataGrid1.Columns.Add(gridComboBoxDataType);
+        this.sfDataGrid1.Columns.Add(new GridTextColumn() { MappingName = "DataCategory", HeaderText = "DataCategory", AllowEditing = false });
+        this.sfDataGrid1.Columns.Add(gridComboBoxGroupSource);
+        //this.sfDataGrid1.Columns.Add(gridComboBoxGroupTarget);
+        this.sfDataGrid1.Columns.Add(new GridCheckBoxColumn() { MappingName = "Visible", HeaderText = "Visible", AllowEditing = false });
+        this.sfDataGrid1.Columns.Add(new GridTextColumn() { MappingName = "Description", HeaderText = "Tooltip Description", MinimumWidth = 200 });
+        this.sfDataGrid1.Columns.Add(new GridCheckBoxColumn() { MappingName = "UserModifiable", HeaderText = "UserModifiable", AllowEditing = false });
+        this.sfDataGrid1.Columns.Add(new GridCheckBoxColumn() { MappingName = "HideWhenNoValue", HeaderText = "HideWhenNoValue", AllowEditing = false });
 
-            GridComboBoxColumn gridComboBoxGroupSource = new GridComboBoxColumn
-            {
-                MappingName = "Group",
-                HeaderText = "Group",
-                ValueMember = "ID",
-                DisplayMember = "Name",
-                DropDownStyle = DropDownStyle.DropDownList,
-                DataSource = _sourceModel.Groups,
-                Width = 200,
-                AllowEditing = false
-            };
+        this.sfDataGrid1.DataSource = _sourceModel.Parameters
+            .Where(p => _targetModel.Parameters
+            .All(p2 => p2.Guid != p.Guid)).ToList();
 
-            //TODO:  map the parameters at source
-            GridComboBoxColumn gridComboBoxGroupTarget = new GridComboBoxColumn
-            {
-                MappingName = "Group",
-                HeaderText = "Target Group",
-                ValueMember = "ID",
-                DisplayMember = "Name",
-                DropDownStyle = DropDownStyle.DropDownList,
-                DataSource = _targetModel.Groups,
-                Width = 200
-            };
+    }
 
-            //GUID  NAME    DATATYPE    DATACATEGORY    GROUP   VISIBLE DESCRIPTION USERMODIFIABLE  HIDEWHENNOVALUE
-            this.sfDataGrid1.Columns.Clear();
-            this.sfDataGrid1.Columns.Add(new GridCheckBoxSelectorColumn() { MappingName = "SelectorColumn", HeaderText = string.Empty, AllowCheckBoxOnHeader = false, Width = 34, CheckBoxSize = new Size(14, 14) });
-            this.sfDataGrid1.Columns.Add(new GridTextColumn() { MappingName = "Guid", HeaderText = "GUID", MinimumWidth = 300, AllowEditing = false });
-            this.sfDataGrid1.Columns.Add(new GridTextColumn() { MappingName = "Name", HeaderText = "Name", MinimumWidth = 300, AllowEditing = false });
-            this.sfDataGrid1.Columns.Add(gridComboBoxDataType);
-            this.sfDataGrid1.Columns.Add(new GridTextColumn() { MappingName = "DataCategory", HeaderText = "DataCategory", AllowEditing = false });
-            this.sfDataGrid1.Columns.Add(gridComboBoxGroupSource);
-            //this.sfDataGrid1.Columns.Add(gridComboBoxGroupTarget);
-            this.sfDataGrid1.Columns.Add(new GridCheckBoxColumn() { MappingName = "Visible", HeaderText = "Visible", AllowEditing = false });
-            this.sfDataGrid1.Columns.Add(new GridTextColumn() { MappingName = "Description", HeaderText = "Tooltip Description", MinimumWidth = 200 });
-            this.sfDataGrid1.Columns.Add(new GridCheckBoxColumn() { MappingName = "UserModifiable", HeaderText = "UserModifiable", AllowEditing = false });
-            this.sfDataGrid1.Columns.Add(new GridCheckBoxColumn() { MappingName = "HideWhenNoValue", HeaderText = "HideWhenNoValue", AllowEditing = false });
-
-            this.sfDataGrid1.DataSource = _sourceModel.Parameters
-                .Where(p => _targetModel.Parameters
-                .All(p2 => p2.Guid != p.Guid)).ToList();
-
-        }
-
-        void sfDataGrid1_DrawCell(object sender, Syncfusion.WinForms.DataGrid.Events.DrawCellEventArgs e)
+    void sfDataGrid1_DrawCell(object sender, Syncfusion.WinForms.DataGrid.Events.DrawCellEventArgs e)
+    {
+        if (e.DataRow.RowType == RowType.CaptionCoveredRow && !string.IsNullOrEmpty(e.DisplayText))
         {
-            if (e.DataRow.RowType == RowType.CaptionCoveredRow && !string.IsNullOrEmpty(e.DisplayText))
+            var displayText = string.Empty;
+            var group = (e.DataRow.RowData as Syncfusion.Data.Group);
+            if (group != null)
             {
-                var displayText = string.Empty;
-                var group = (e.DataRow.RowData as Syncfusion.Data.Group);
-                if (group != null)
-                {
-                    displayText = $"{_sourceModel.Groups.Where(x => x.ID == int.Parse(group.Key.ToString())).FirstOrDefault().Name} : { group.Records.Count } parameters";
-                    e.DisplayText = displayText;
-                }
+                displayText = $"{_sourceModel.Groups.Where(x => x.ID == int.Parse(group.Key.ToString())).FirstOrDefault().Name} : { group.Records.Count } parameters";
+                e.DisplayText = displayText;
             }
         }
+    }
 
-        private int GetTotalRecordsCount(Group group)
+    private int GetTotalRecordsCount(Group group)
+    {
+        int count = 0;
+
+        if (group.Groups != null)
         {
-            int count = 0;
-
-            if (group.Groups != null)
+            foreach (var g in group.Groups)
             {
-                foreach (var g in group.Groups)
-                {
-                    if (g.Groups != null)
-                        foreach (var g1 in g.Groups)
-                            count += GetTotalRecordsCount(g1);
+                if (g.Groups != null)
+                    foreach (var g1 in g.Groups)
+                        count += GetTotalRecordsCount(g1);
 
-                    if (g.Records != null)
-                        count += g.Records.Count;
-                }
+                if (g.Records != null)
+                    count += g.Records.Count;
             }
-            else
-                if (group.Records != null)
-                count += group.Records.Count;
-
-            return count;
         }
+        else
+            if (group.Records != null)
+            count += group.Records.Count;
 
-        private void buttonMergeParameters_Click(object sender, EventArgs e)
+        return count;
+    }
+
+    private void buttonMergeParameters_Click(object sender, EventArgs e)
+    {
+        _parameterModels = this.sfDataGrid1.SelectedItems.Cast<ParameterModel>().ToList();
+
+        //_groupModels = _sourceModel.Groups
+        //    .Where(p => _targetModel.Groups
+        //    .All(p2 => p2.Name != p.Name))
+        //    .ToList();
+
+        _groupModels = _sourceModel.Groups
+            .Except(_targetModel.Groups)
+            .ToList();
+
+        _callingForm.ParameterListComplete(_parameterModels, _groupModels);
+
+        DialogResult = DialogResult.OK;
+        Close();
+    }
+
+    private void sfDataGrid1_SelectionChanged(object sender, Syncfusion.WinForms.DataGrid.Events.SelectionChangedEventArgs e)
+    {
+
+        if (this.sfDataGrid1.SelectedItems.Count > 0)
         {
-            _parameterModels = this.sfDataGrid1.SelectedItems.Cast<ParameterModel>().ToList();
-
-            //_groupModels = _sourceModel.Groups
-            //    .Where(p => _targetModel.Groups
-            //    .All(p2 => p2.Name != p.Name))
-            //    .ToList();
-
-            _groupModels = _sourceModel.Groups
-                .Except(_targetModel.Groups)
-                .ToList();
-
-            _callingForm.ParameterListComplete(_parameterModels, _groupModels);
-
-            DialogResult = DialogResult.OK;
-            Close();
+            this.buttonMergeParameters.Enabled = true;
         }
-
-        private void sfDataGrid1_SelectionChanged(object sender, Syncfusion.WinForms.DataGrid.Events.SelectionChangedEventArgs e)
+        else
         {
-
-            if (this.sfDataGrid1.SelectedItems.Count > 0)
-            {
-                this.buttonMergeParameters.Enabled = true;
-            }
-            else
-            {
-                this.buttonMergeParameters.Enabled = false;
-            }
-
+            this.buttonMergeParameters.Enabled = false;
         }
 
     }
+
 }

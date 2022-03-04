@@ -1,10 +1,9 @@
 ﻿using SharedParametersFile.Models;
 using System.Collections.Generic;
 
-namespace SharedParameterFileEditor.Requesters
+namespace SharedParameterFileEditor.Requesters;
+
+public interface IParameterListRequester
 {
-    public interface IParameterListRequester
-    {
-        void ParameterListComplete(List<ParameterModel> parameters, List<GroupModel> groups);
-    }
+    void ParameterListComplete(List<ParameterModel> parameters, List<GroupModel> groups);
 }
