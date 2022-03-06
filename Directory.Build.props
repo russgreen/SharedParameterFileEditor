@@ -1,0 +1,23 @@
+<Project>
+  <PropertyGroup>
+    <Title>Shared Parameter File Editor</Title>
+    <Copyright>Copyright © Russell Green</Copyright>
+	  
+    <Authors>Russ Green</Authors>	  
+    <Description>Edit and maintain Revit shared parameters files outside of Revit</Description>
+ 	  
+    <VersionPrefix>1.0.5</VersionPrefix>
+    <VersionSuffix></VersionSuffix>
+    <ApplicationVersion>$(VersionPrefix).0</ApplicationVersion>
+    <FileVersion>$(VersionPrefix).0</FileVersion>
+    <InformationalVersion>$(Version)</InformationalVersion>
+
+    <RepositoryUrl>https://github.com/russgreen/SharedParameterFileEditor</RepositoryUrl>
+    <!--<SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>../../sn.snk</AssemblyOriginatorKeyFile> -->
+   </PropertyGroup>
+	
+  <PropertyGroup>
+	  <ImplicitUsings>enable</ImplicitUsings>
+   </PropertyGroup>	  
+  </Project>

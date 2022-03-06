@@ -4,13 +4,8 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
-    <Description>Edit and maintain Revit shared parameters files outside of Revit.</Description>
-    <Copyright>Copyright © Russell Green</Copyright>
-    <Version>1.0.5</Version>
     <ApplicationIcon>spEditor.ico</ApplicationIcon>
-    <Authors>Russell Green</Authors>
-    <Company />
-    <Product>Shared Parameter File Editor</Product>
+    <Platforms>x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>

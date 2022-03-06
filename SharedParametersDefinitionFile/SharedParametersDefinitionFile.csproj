@@ -3,8 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>SharedParametersFile</RootNamespace>
-    <Copyright>Copyright © Russell Green</Copyright>
-    <Description>Helper library to work with shared parameter files</Description>
+    <Platforms>x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>

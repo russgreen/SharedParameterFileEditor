@@ -1,5 +1,4 @@
 ﻿using SharedParametersFile.Models;
-using System.Collections.Generic;
 
 namespace SharedParameterFileEditor.Requesters;
 

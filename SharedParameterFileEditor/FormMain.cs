@@ -3,13 +3,8 @@ using Syncfusion.Data;
 using Syncfusion.WinForms.DataGrid;
 using Syncfusion.WinForms.DataGrid.Enums;
 using Syncfusion.WinForms.ListView.Enums;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Windows.Forms;
 using SharedParametersFile;
 using SharedParametersFile.Models;
 

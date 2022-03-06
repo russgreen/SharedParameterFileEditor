@@ -9,6 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedParametersDefinitionF
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{807ACABC-2956-4E74-A299-3329FA4CA1DC}"
 	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
 		README.md = README.md
 		SyncfusionKey.txt = SyncfusionKey.txt
 		SyncfusionLicenseRegister.bat = SyncfusionLicenseRegister.bat
@@ -16,18 +17,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{858DBCB2-C2A4-48FD-B2A5-698005BEC923}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{858DBCB2-C2A4-48FD-B2A5-698005BEC923}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{858DBCB2-C2A4-48FD-B2A5-698005BEC923}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{858DBCB2-C2A4-48FD-B2A5-698005BEC923}.Release|Any CPU.Build.0 = Release|Any CPU
-		{21CD4A2B-D23E-4177-AA8E-D7237513EA3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{21CD4A2B-D23E-4177-AA8E-D7237513EA3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{21CD4A2B-D23E-4177-AA8E-D7237513EA3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{21CD4A2B-D23E-4177-AA8E-D7237513EA3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{858DBCB2-C2A4-48FD-B2A5-698005BEC923}.Debug|x64.ActiveCfg = Debug|x64
+		{858DBCB2-C2A4-48FD-B2A5-698005BEC923}.Debug|x64.Build.0 = Debug|x64
+		{858DBCB2-C2A4-48FD-B2A5-698005BEC923}.Release|x64.ActiveCfg = Release|x64
+		{858DBCB2-C2A4-48FD-B2A5-698005BEC923}.Release|x64.Build.0 = Release|x64
+		{21CD4A2B-D23E-4177-AA8E-D7237513EA3F}.Debug|x64.ActiveCfg = Debug|x64
+		{21CD4A2B-D23E-4177-AA8E-D7237513EA3F}.Debug|x64.Build.0 = Debug|x64
+		{21CD4A2B-D23E-4177-AA8E-D7237513EA3F}.Release|x64.ActiveCfg = Release|x64
+		{21CD4A2B-D23E-4177-AA8E-D7237513EA3F}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
