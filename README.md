@@ -8,5 +8,10 @@ Standalone editor for Revit shared parameter files
 
 Parameters from a another (source) shared parameter file can be loaded and selectively merged or added to the current (target) file when GUID's in the source do not exist in the target.
 
-# Syncfusion Controls
+## Roadmap
+
+- [ ] Limit number of backuop files saved...delete older files on save.
+- [ ] Revit addin to allow batch importing on shared parameters
+
+## Syncfusion Controls
 The UI makes use of Syncfusion controls community license. To use the app from this code a license must be passed into the pre and post build script.  The Syncfusion license key is stored in a text file at the root of the solution and is not committed to the Git repo.
