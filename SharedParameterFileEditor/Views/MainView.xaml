@@ -1,0 +1,122 @@
+﻿<Window x:Class="SharedParameterFileEditor.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SharedParameterFileEditor.Views"
+        xmlns:viewModels="clr-namespace:SharedParameterFileEditor.ViewModels"   
+        xmlns:interactivity="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance {x:Type viewModels:MainViewModel}, IsDesignTimeCreatable=True}"
+        Title="{Binding WindowTitle}" Height="450" Width="800"
+        FontSize="14" FontFamily="Segoe UI Light" 
+        WindowStartupLocation="CenterScreen" >
+    <Window.DataContext>
+        <viewModels:MainViewModel />
+    </Window.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition>
+                <ColumnDefinition.Style>
+                    <Style TargetType="ColumnDefinition">
+                        <Setter Property="Width" Value="300" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding GroupsVisible, Mode=TwoWay}" Value="Hidden">
+                                <Setter Property="Width" Value="0" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ColumnDefinition.Style>
+            </ColumnDefinition>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+            
+
+        <Menu Grid.Row="0" Grid.ColumnSpan="2" >
+            <MenuItem Header="_File">
+                <MenuItem Header="_Open..." x:Name="menuItemOpen" Click="menuItemOpen_Click" />
+                <Separator />                
+                <MenuItem Header="_Save" IsEnabled="{Binding UnsavedChanges}" 
+                          Command="{Binding SaveDefinitionFileCommand}"/>
+                <MenuItem Header="Save as..." x:Name="menuItemSaveAs" 
+                          Click="menuItemSaveAs_Click"
+                          IsEnabled="False"/>
+                <Separator />
+                <MenuItem Header="_Exit" x:Name="menuItemExit" 
+                          Click="menuItemExit_Click"  />
+            </MenuItem>
+            <MenuItem Header="_Groups">
+                <MenuItem Header="{Binding ToggleGroupMenuText}" 
+                          Command="{Binding ToggleGroupVisibilityCommand}" />
+            </MenuItem>
+            <MenuItem Header="_Merge">
+                <MenuItem Header="Merge new into current..." x:Name="menuItemMerge" 
+                          Click="menuItemMerge_Click" 
+                          IsEnabled="{Binding MergeEnabled}"/>
+            </MenuItem>
+            <MenuItem Header="_Help">
+                <MenuItem Header="_About..." x:Name="menuItemAbout" 
+                          Click="menuItemAbout_Click" />
+            </MenuItem>
+        </Menu>
+
+
+        <syncfusion:SfDataGrid Grid.Row="1" Grid.Column="0" 
+                               x:Name="sfDataGridGroups"
+                               Visibility="{Binding GroupsVisible}"
+                               ItemsSource="{Binding DefFile.definitionFileModel.Groups}"
+                               AutoGenerateColumns="False" 
+                               AllowDeleting="True"
+                               AllowEditing="True" 
+                               CurrentCellValidated="SfDataGridGroups_CurrentCellValidated" 
+                               AddNewRowPosition="Bottom" 
+                               AddNewRowText="Add a new group" RecordDeleting="sfDataGridGroups_RecordDeleting">
+            <syncfusion:SfDataGrid.Columns>
+                <syncfusion:GridTextColumn MappingName="ID" Width="50" AllowEditing="False" />
+                <syncfusion:GridTextColumn MappingName="Name" MinimumWidth="300" />
+            </syncfusion:SfDataGrid.Columns>
+        </syncfusion:SfDataGrid>            
+
+        <GridSplitter Grid.Row="1" ResizeDirection="Columns" Width="5" Height="Auto" 
+                      Visibility="{Binding GroupsVisible}" />        
+
+        <syncfusion:SfDataGrid Grid.Row="1" Grid.Column="1"
+                               x:Name="sfDataGridParameters"
+                               ItemsSource="{Binding DefFile.definitionFileModel.Parameters}"
+                               AutoGenerateColumns="False" 
+                               AllowFiltering="True" 
+                               AllowDeleting="True" 
+                               AllowEditing="True" 
+                               ShowGroupDropArea="True" 
+                               SelectionMode="Extended"
+                               CurrentCellValidated="SfDataGridParameters_CurrentCellValidated" 
+                               AddNewRowPosition="Bottom" 
+                               AddNewRowText="Add a new parameter">
+            <syncfusion:SfDataGrid.Columns>
+                <syncfusion:GridTextColumn MappingName="Guid" HeaderText="GUID" MinimumWidth="300" AllowEditing="False" />
+                <syncfusion:GridTextColumn MappingName="Name" HeaderText="Name" MinimumWidth="300" />
+                <syncfusion:GridComboBoxColumn MappingName="DataType" HeaderText="Datatype" Width="150" 
+                                               ItemsSource="{Binding Types}" />
+                <syncfusion:GridTextColumn MappingName="DataCategory" HeaderText="DataCategory" AllowEditing="False" />
+                <syncfusion:GridComboBoxColumn MappingName="Group" HeaderText="Group" Width="200" 
+                                               ItemsSource="{Binding DefFile.definitionFileModel.Groups}" 
+                                               DisplayMemberPath="Name" 
+                                               SelectedValuePath="ID" />
+                <syncfusion:GridCheckBoxColumn MappingName="Visible" HeaderText="Visible"/>
+                <syncfusion:GridTextColumn MappingName="Description" HeaderText="Description" MinimumWidth="200" />
+                <syncfusion:GridCheckBoxColumn MappingName="UserModifiable" HeaderText="UserModifiable"/>
+                <syncfusion:GridCheckBoxColumn MappingName="HideWhenNoValue" HeaderText="HideWhenNoValue"/>
+            </syncfusion:SfDataGrid.Columns>
+        </syncfusion:SfDataGrid>
+
+    </Grid>
+    
+</Window>

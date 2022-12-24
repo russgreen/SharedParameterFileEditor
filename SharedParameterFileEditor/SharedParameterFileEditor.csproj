@@ -3,9 +3,9 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
-    <UseWindowsForms>true</UseWindowsForms>
-    <ApplicationIcon>spEditor.ico</ApplicationIcon>
-    <Platforms>x64</Platforms>
+	<UseWPF>true</UseWPF>
+    <ApplicationIcon>Resources\spEditor.ico</ApplicationIcon>
+	<Platforms>x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,36 +13,29 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="PropertyChanged.Fody" Version="3.4.0" />
-    <PackageReference Include="Syncfusion.SfDataGrid.WinForms" Version="19.4.0.54" />
-    <PackageReference Include="Syncfusion.SfListView.WinForms" Version="19.4.0.54" />
+    <None Remove="Resources\Parameters.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Parameters.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0-preview2" />
+    <PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.1" />
+    <PackageReference Include="Syncfusion.SfGrid.WPF" Version="20.3.0.61" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SharedParametersDefinitionFile\SharedParametersDefinitionFile.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="Properties\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="cd &quot;$(SolutionDir)&quot;&#xD;&#xA;SyncfusionLicenseRegister.bat PreBuild $(ProjectDir)Program.cs $(SolutionDir)SyncfusionKey.txt" />
+    <Exec Command="cd &quot;$(SolutionDir)&quot;&#xD;&#xA;SyncfusionLicenseRegister.bat PreBuild $(ProjectDir)App.xaml.cs $(SolutionDir)SyncfusionKey.txt" />
   </Target>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="cd &quot;$(SolutionDir)&quot;&#xD;&#xA;SyncfusionLicenseRegister.bat PostBuild $(ProjectDir)Program.cs $(SolutionDir)SyncfusionKey.txt" />
+    <Exec Command="cd &quot;$(SolutionDir)&quot;&#xD;&#xA;SyncfusionLicenseRegister.bat PostBuild $(ProjectDir)App.xaml.cs $(SolutionDir)SyncfusionKey.txt" />
   </Target>
 
 </Project>
