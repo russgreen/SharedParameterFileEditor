@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<DOCUMENT Type="Advanced Installer" CreateVersion="19.1" version="20.2" Modules="simple" RootPath="." Language="en" Id="{DB7D2917-09A9-44B9-98CC-F1A24D3D06FC}">
+<DOCUMENT Type="Advanced Installer" CreateVersion="19.1" version="20.4.1" Modules="simple" RootPath="." Language="en" Id="{DB7D2917-09A9-44B9-98CC-F1A24D3D06FC}">
   <COMPONENT cid="caphyon.advinst.msicomp.ProjectOptionsComponent">
     <ROW Name="HiddenItems" Value="AppXAppDetailsComponent;FixupComponent;AppXCapabilitiesComponent;AppXDependenciesComponent;AppXProductDetailsComponent;AppXVisualAssetsComponent;AppXAppDeclarationsComponent;AppXUriRulesComponent;MsiXDiffComponent;MsixManifestEditorComponent"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
     <ROW Property="AI_BITMAP_DISPLAY_MODE" Value="0"/>
-    <ROW Property="AI_CURRENT_YEAR" Value="2022" ValueLocId="-"/>
-    <ROW Property="AI_PACKAGING_TOOL" Value="Advanced Installer 20.2 build 2c3f1cf9" ValueLocId="-"/>
     <ROW Property="ALLUSERS" Value="1"/>
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
     <ROW Property="ARPPRODUCTICON" Value="spEditor_1.exe" Type="8"/>
     <ROW Property="ARPURLINFOABOUT" Value="https://github.com/russgreen/SharedParameterFileEditor/issues"/>
     <ROW Property="Manufacturer" Value="Russell Green"/>
-    <ROW Property="ProductCode" Value="1033:{8719B3E5-3457-4095-8383-89F9C14ECB51} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{08D1E281-BFC4-4301-93AF-29C2486F24A5} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="Shared Paramter File Editor"/>
-    <ROW Property="ProductVersion" Value="2.0.0"/>
+    <ROW Property="ProductVersion" Value="2.0.1"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{B08A6D9E-A4E7-4745-A390-99A116B9334E}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
@@ -52,19 +50,19 @@
     <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
-    <ROW File="SharedParameterFileEditor.exe" Component_="SharedParameterFileEditor.exe" FileName="SHARED~1.EXE|SharedParameterFileEditor.exe" Attributes="0" SourcePath="..\SharedParameterFileEditor\bin\x64\Release\net6.0-windows\SharedParameterFileEditor.exe" SelfReg="false" DigSign="true"/>
-    <ROW File="SharedParameterFileEditor.runtimeconfig.json" Component_="SharedParameterFileEditor.runtimeconfig.json" FileName="SHARED~1.JSO|SharedParameterFileEditor.runtimeconfig.json" Attributes="0" SourcePath="..\SharedParameterFileEditor\bin\x64\Release\net6.0-windows\SharedParameterFileEditor.runtimeconfig.json" SelfReg="false"/>
-    <ROW File="SharedParametersDefinitionFile.dll" Component_="SharedParametersDefinitionFile.dll" FileName="SHARED~1.DLL|SharedParametersDefinitionFile.dll" Attributes="0" SourcePath="..\SharedParameterFileEditor\bin\x64\Release\net6.0-windows\SharedParametersDefinitionFile.dll" SelfReg="false"/>
-    <ROW File="Syncfusion.Licensing.dll" Component_="Syncfusion.Licensing.dll" FileName="SYNCFU~5.DLL|Syncfusion.Licensing.dll" Attributes="0" SourcePath="..\SharedParameterFileEditor\bin\x64\Release\net6.0-windows\Syncfusion.Licensing.dll" SelfReg="false"/>
-    <ROW File="SharedParameterFileEditor.deps.json" Component_="SharedParameterFileEditor.runtimeconfig.json" FileName="SHARED~2.JSO|SharedParameterFileEditor.deps.json" Attributes="0" SourcePath="..\SharedParameterFileEditor\bin\x64\Release\net6.0-windows\SharedParameterFileEditor.deps.json" SelfReg="false"/>
-    <ROW File="SharedParameterFileEditor.dll" Component_="SharedParameterFileEditor.dll" FileName="SHARED~2.DLL|SharedParameterFileEditor.dll" Attributes="0" SourcePath="..\SharedParameterFileEditor\bin\x64\Release\net6.0-windows\SharedParameterFileEditor.dll" SelfReg="false"/>
-    <ROW File="CommunityToolkit.Mvvm.dll" Component_="CommunityToolkit.Mvvm.dll" FileName="COMMUN~1.DLL|CommunityToolkit.Mvvm.dll" Attributes="0" SourcePath="..\SharedParameterFileEditor\bin\x64\Release\net6.0-windows\CommunityToolkit.Mvvm.dll" SelfReg="false"/>
-    <ROW File="Ookii.Dialogs.Wpf.dll" Component_="Ookii.Dialogs.Wpf.dll" FileName="OOKIID~1.DLL|Ookii.Dialogs.Wpf.dll" Attributes="0" SourcePath="..\SharedParameterFileEditor\bin\x64\Release\net6.0-windows\Ookii.Dialogs.Wpf.dll" SelfReg="false"/>
-    <ROW File="SharedParameterFileEditor.pdb" Component_="SharedParameterFileEditor.exe" FileName="SHARED~1.PDB|SharedParameterFileEditor.pdb" Attributes="0" SourcePath="..\SharedParameterFileEditor\bin\x64\Release\net6.0-windows\SharedParameterFileEditor.pdb" SelfReg="false"/>
-    <ROW File="SharedParametersDefinitionFile.pdb" Component_="SharedParametersDefinitionFile.dll" FileName="SHARED~2.PDB|SharedParametersDefinitionFile.pdb" Attributes="0" SourcePath="..\SharedParameterFileEditor\bin\x64\Release\net6.0-windows\SharedParametersDefinitionFile.pdb" SelfReg="false"/>
-    <ROW File="Syncfusion.Data.WPF.dll" Component_="Syncfusion.Data.WPF.dll" FileName="SYNCF~10.DLL|Syncfusion.Data.WPF.dll" Attributes="0" SourcePath="..\SharedParameterFileEditor\bin\x64\Release\net6.0-windows\Syncfusion.Data.WPF.dll" SelfReg="false"/>
-    <ROW File="Syncfusion.SfGrid.WPF.dll" Component_="Syncfusion.SfGrid.WPF.dll" FileName="SYNCF~11.DLL|Syncfusion.SfGrid.WPF.dll" Attributes="0" SourcePath="..\SharedParameterFileEditor\bin\x64\Release\net6.0-windows\Syncfusion.SfGrid.WPF.dll" SelfReg="false"/>
-    <ROW File="Syncfusion.Shared.WPF.dll" Component_="Syncfusion.Shared.WPF.dll" FileName="SYNCF~12.DLL|Syncfusion.Shared.WPF.dll" Attributes="0" SourcePath="..\SharedParameterFileEditor\bin\x64\Release\net6.0-windows\Syncfusion.Shared.WPF.dll" SelfReg="false"/>
+    <ROW File="SharedParameterFileEditor.exe" Component_="SharedParameterFileEditor.exe" FileName="SHARED~1.EXE|SharedParameterFileEditor.exe" Attributes="0" SourcePath="..\SharedParameterFileEditor\bin\x64\Release\net7.0-windows\SharedParameterFileEditor.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="SharedParameterFileEditor.runtimeconfig.json" Component_="SharedParameterFileEditor.runtimeconfig.json" FileName="SHARED~1.JSO|SharedParameterFileEditor.runtimeconfig.json" Attributes="0" SourcePath="..\SharedParameterFileEditor\bin\x64\Release\net7.0-windows\SharedParameterFileEditor.runtimeconfig.json" SelfReg="false"/>
+    <ROW File="SharedParametersDefinitionFile.dll" Component_="SharedParametersDefinitionFile.dll" FileName="SHARED~1.DLL|SharedParametersDefinitionFile.dll" Attributes="0" SourcePath="..\SharedParameterFileEditor\bin\x64\Release\net7.0-windows\SharedParametersDefinitionFile.dll" SelfReg="false"/>
+    <ROW File="Syncfusion.Licensing.dll" Component_="Syncfusion.Licensing.dll" FileName="SYNCFU~5.DLL|Syncfusion.Licensing.dll" Attributes="0" SourcePath="..\SharedParameterFileEditor\bin\x64\Release\net7.0-windows\Syncfusion.Licensing.dll" SelfReg="false"/>
+    <ROW File="SharedParameterFileEditor.deps.json" Component_="SharedParameterFileEditor.runtimeconfig.json" FileName="SHARED~2.JSO|SharedParameterFileEditor.deps.json" Attributes="0" SourcePath="..\SharedParameterFileEditor\bin\x64\Release\net7.0-windows\SharedParameterFileEditor.deps.json" SelfReg="false"/>
+    <ROW File="SharedParameterFileEditor.dll" Component_="SharedParameterFileEditor.dll" FileName="SHARED~2.DLL|SharedParameterFileEditor.dll" Attributes="0" SourcePath="..\SharedParameterFileEditor\bin\x64\Release\net7.0-windows\SharedParameterFileEditor.dll" SelfReg="false"/>
+    <ROW File="CommunityToolkit.Mvvm.dll" Component_="CommunityToolkit.Mvvm.dll" FileName="COMMUN~1.DLL|CommunityToolkit.Mvvm.dll" Attributes="0" SourcePath="..\SharedParameterFileEditor\bin\x64\Release\net7.0-windows\CommunityToolkit.Mvvm.dll" SelfReg="false"/>
+    <ROW File="Ookii.Dialogs.Wpf.dll" Component_="Ookii.Dialogs.Wpf.dll" FileName="OOKIID~1.DLL|Ookii.Dialogs.Wpf.dll" Attributes="0" SourcePath="..\SharedParameterFileEditor\bin\x64\Release\net7.0-windows\Ookii.Dialogs.Wpf.dll" SelfReg="false"/>
+    <ROW File="SharedParameterFileEditor.pdb" Component_="SharedParameterFileEditor.exe" FileName="SHARED~1.PDB|SharedParameterFileEditor.pdb" Attributes="0" SourcePath="..\SharedParameterFileEditor\bin\x64\Release\net7.0-windows\SharedParameterFileEditor.pdb" SelfReg="false"/>
+    <ROW File="SharedParametersDefinitionFile.pdb" Component_="SharedParametersDefinitionFile.dll" FileName="SHARED~2.PDB|SharedParametersDefinitionFile.pdb" Attributes="0" SourcePath="..\SharedParameterFileEditor\bin\x64\Release\net7.0-windows\SharedParametersDefinitionFile.pdb" SelfReg="false"/>
+    <ROW File="Syncfusion.Data.WPF.dll" Component_="Syncfusion.Data.WPF.dll" FileName="SYNCF~10.DLL|Syncfusion.Data.WPF.dll" Attributes="0" SourcePath="..\SharedParameterFileEditor\bin\x64\Release\net7.0-windows\Syncfusion.Data.WPF.dll" SelfReg="false"/>
+    <ROW File="Syncfusion.SfGrid.WPF.dll" Component_="Syncfusion.SfGrid.WPF.dll" FileName="SYNCF~11.DLL|Syncfusion.SfGrid.WPF.dll" Attributes="0" SourcePath="..\SharedParameterFileEditor\bin\x64\Release\net7.0-windows\Syncfusion.SfGrid.WPF.dll" SelfReg="false"/>
+    <ROW File="Syncfusion.Shared.WPF.dll" Component_="Syncfusion.Shared.WPF.dll" FileName="SYNCF~12.DLL|Syncfusion.Shared.WPF.dll" Attributes="0" SourcePath="..\SharedParameterFileEditor\bin\x64\Release\net7.0-windows\Syncfusion.Shared.WPF.dll" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BootstrOptComponent">
     <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
