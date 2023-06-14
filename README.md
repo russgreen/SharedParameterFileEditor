@@ -10,7 +10,7 @@ Parameters from a another (source) shared parameter file can be loaded and selec
 
 ## Roadmap
 
-- [ ] Limit number of backuop files saved...delete older files on save.
+- [x] Limit number of backuop files saved...delete older files on save.
 - [ ] Revit addin to allow batch importing on shared parameters
 
 ## Syncfusion Controls

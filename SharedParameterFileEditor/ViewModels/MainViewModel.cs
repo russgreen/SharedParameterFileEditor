@@ -36,6 +36,9 @@ internal partial class MainViewModel : BaseViewModel
     [ObservableProperty]
     private bool _mergeEnabled = false;
 
+    [ObservableProperty]
+    private bool _editGuid = false;
+
     private SharedParametersDefinitionFile _mergeSourceFile;
 
     [ObservableProperty]

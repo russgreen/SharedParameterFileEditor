@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<DOCUMENT Type="Advanced Installer" CreateVersion="19.1" version="20.6" Modules="simple" RootPath="." Language="en" Id="{DB7D2917-09A9-44B9-98CC-F1A24D3D06FC}">
+<DOCUMENT Type="Advanced Installer" CreateVersion="19.1" version="20.4.1" Modules="simple" RootPath="." Language="en" Id="{DB7D2917-09A9-44B9-98CC-F1A24D3D06FC}">
   <COMPONENT cid="caphyon.advinst.msicomp.ProjectOptionsComponent">
     <ROW Name="HiddenItems" Value="AppXAppDetailsComponent;FixupComponent;AppXCapabilitiesComponent;AppXDependenciesComponent;AppXProductDetailsComponent;AppXVisualAssetsComponent;AppXAppDeclarationsComponent;AppXUriRulesComponent;MsiXDiffComponent;MsixManifestEditorComponent"/>
   </COMPONENT>
@@ -10,10 +10,10 @@
     <ROW Property="ARPPRODUCTICON" Value="spEditor_1.exe" Type="8"/>
     <ROW Property="ARPURLINFOABOUT" Value="https://github.com/russgreen/SharedParameterFileEditor/issues"/>
     <ROW Property="Manufacturer" Value="Russell Green"/>
-    <ROW Property="ProductCode" Value="1033:{F22AFAAE-A9E1-4C05-8F8A-48CBAC8DE440} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{08D1E281-BFC4-4301-93AF-29C2486F24A5} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="Shared Paramter File Editor"/>
-    <ROW Property="ProductVersion" Value="2.1.0"/>
+    <ROW Property="ProductVersion" Value="2.0.1"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{B08A6D9E-A4E7-4745-A390-99A116B9334E}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>

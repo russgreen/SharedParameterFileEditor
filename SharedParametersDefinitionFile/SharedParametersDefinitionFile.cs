@@ -85,13 +85,13 @@ public class SharedParametersDefinitionFile
         if (fileName == null)
         {
             fileName = _definitionFileName;
-
-            backUpFile(fileName);
         }
         else
         {
             _definitionFileName = fileName;
         }
+
+        backUpFile(fileName);
 
         System.IO.File.WriteAllLines(fileName, output);
     }
@@ -99,21 +99,20 @@ public class SharedParametersDefinitionFile
     private void backUpFile(string fileName)
     {
         //backup filename to be in the format filename.nnnn.txt
-
         System.IO.FileInfo fileInfo = new System.IO.FileInfo(fileName);
 
         //first look for existing backups - regex "<filename>.\d\d\d\d.txt"
         var searchPattern = $"{fileInfo.Name.Remove(fileInfo.Name.Length - 4)}.????.txt";
-        var files = System.IO.Directory.GetFiles(fileInfo.DirectoryName, searchPattern);
+        var backupFiles = System.IO.Directory.GetFiles(fileInfo.DirectoryName, searchPattern).ToList();
 
         var backupNumber = 1;
 
 
-        if (files.Length > 0)
+        if (backupFiles.Count > 0)
         {
             List<int> backNumbers = new List<int>();
 
-            foreach (var file in files)
+            foreach (var file in backupFiles)
             {
                 var data = System.Text.RegularExpressions.Regex.Match(file, @"\d\d\d\d.txt").Value;
                 var number = int.Parse(data.Remove(data.Length - 4));
@@ -127,6 +126,21 @@ public class SharedParametersDefinitionFile
         var backupFilename = System.IO.Path.Combine(fileInfo.DirectoryName, $"{fileInfo.Name.Remove(fileInfo.Name.Length - 4)}.{backupNumber.ToString("D4")}.txt");
 
         fileInfo.CopyTo(backupFilename);
+
+        backupFiles.Add(backupFilename);
+
+        //remove old backups
+        var maxBackups = 5;
+        if (backupFiles.Count > maxBackups)
+        {
+            backupFiles.Sort();
+            
+            //only keep the most recent 3 backups
+            for (int i = 0; i < backupFiles.Count - maxBackups; i++)
+            {
+                System.IO.File.Delete(backupFiles[i]);
+            }
+        }
     }
 
 }

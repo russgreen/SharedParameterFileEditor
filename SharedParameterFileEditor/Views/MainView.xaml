@@ -53,6 +53,10 @@
                 <MenuItem Header="_Exit" x:Name="menuItemExit" 
                           Click="menuItemExit_Click"  />
             </MenuItem>
+            <MenuItem Header="_Edit">
+                <MenuItem Header="Edit GUID"
+                          IsChecked="{Binding EditGuid}" IsCheckable="True" />
+            </MenuItem>
             <MenuItem Header="_Groups">
                 <MenuItem Header="{Binding ToggleGroupMenuText}" 
                           Command="{Binding ToggleGroupVisibilityCommand}" />
@@ -101,7 +105,7 @@
                                AddNewRowPosition="Bottom" 
                                AddNewRowText="Add a new parameter">
             <syncfusion:SfDataGrid.Columns>
-                <syncfusion:GridTextColumn MappingName="Guid" HeaderText="GUID" MinimumWidth="300" AllowEditing="False" />
+                <syncfusion:GridTextColumn MappingName="Guid" HeaderText="GUID" MinimumWidth="300" AllowEditing="{Binding EditGuid}" />
                 <syncfusion:GridTextColumn MappingName="Name" HeaderText="Name" MinimumWidth="300" />
                 <syncfusion:GridComboBoxColumn MappingName="DataType" HeaderText="Datatype" Width="150" 
                                                ItemsSource="{Binding Types}" />
