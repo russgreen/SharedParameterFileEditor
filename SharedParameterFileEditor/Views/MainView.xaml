@@ -44,7 +44,7 @@
             <MenuItem Header="_File">
                 <MenuItem Header="_Open..." x:Name="menuItemOpen" Click="menuItemOpen_Click" />
                 <Separator />                
-                <MenuItem Header="_Save" IsEnabled="{Binding UnsavedChanges}" 
+                <MenuItem Header="_Save" IsEnabled="{Binding SaveEnabled}" 
                           Command="{Binding SaveDefinitionFileCommand}"/>
                 <MenuItem Header="Save as..." x:Name="menuItemSaveAs" 
                           Click="menuItemSaveAs_Click"

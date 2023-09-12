@@ -15,6 +15,8 @@ internal partial class MainViewModel : BaseViewModel
 {
 	public string WindowTitle { get; private set; }
 
+    public bool SaveEnabled => Writable & UnsavedChanges;
+
     [ObservableProperty]
     private System.Windows.Visibility _groupsVisible = System.Windows.Visibility.Visible;
 
@@ -31,6 +33,11 @@ internal partial class MainViewModel : BaseViewModel
     private string _newFileName;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(SaveEnabled))]
+    private bool _writable = true;
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(SaveEnabled))]
     private bool _unsavedChanges = false;
 
     [ObservableProperty]
@@ -89,6 +96,15 @@ internal partial class MainViewModel : BaseViewModel
         DefFile.definitionFileModel.Groups.CollectionChanged += Groups_CollectionChanged;
 
         MergeEnabled = true;
+
+        //check if the file is writable or readonly
+        Writable = true;
+
+        if (FileInfo.IsReadOnly)
+        {
+            Writable = false;
+            return;
+        }
     }
 
 

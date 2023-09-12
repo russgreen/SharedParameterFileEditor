@@ -51,6 +51,11 @@ public partial class MainView : Window
 
     private void menuItemSaveAs_Click(object sender, RoutedEventArgs e)
     {
+        SaveAs();
+    }
+
+    private void SaveAs()
+    {
         var dialog = new VistaSaveFileDialog()
         {
             Filter = "Shared Parameter Definition File (*.txt)|*.txt",
@@ -85,7 +90,16 @@ public partial class MainView : Window
 
             if (button == saveButton)
             {
-                _viewModel.SaveDefinitionFileCommand.Execute(null);
+                if(_viewModel.Writable == true)
+                {
+                    _viewModel.SaveDefinitionFileCommand.Execute(null);
+                }
+
+                if(_viewModel.Writable == false)
+                {
+                    SaveAs();
+                }
+                
             }
         }
 
