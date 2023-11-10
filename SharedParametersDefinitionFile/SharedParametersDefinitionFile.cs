@@ -98,11 +98,11 @@ public class SharedParametersDefinitionFile
 
     private void backUpFile(string fileName)
     {
-        //backup filename to be in the format filename.nnnn.txt
+        //backup filename to be in the format filename.nnnn.ext
         System.IO.FileInfo fileInfo = new System.IO.FileInfo(fileName);
 
-        //first look for existing backups - regex "<filename>.\d\d\d\d.txt"
-        var searchPattern = $"{fileInfo.Name.Remove(fileInfo.Name.Length - 4)}.????.txt";
+        //first look for existing backups - regex "<filename>.\d\d\d\d.<ext>"
+        var searchPattern = $"{fileInfo.Name.Remove(fileInfo.Name.Length - fileInfo.Extension.Length)}.????{fileInfo.Extension}";
         var backupFiles = System.IO.Directory.GetFiles(fileInfo.DirectoryName, searchPattern).ToList();
 
         var backupNumber = 1;
@@ -114,8 +114,8 @@ public class SharedParametersDefinitionFile
 
             foreach (var file in backupFiles)
             {
-                var data = System.Text.RegularExpressions.Regex.Match(file, @"\d\d\d\d.txt").Value;
-                var number = int.Parse(data.Remove(data.Length - 4));
+                var data = System.Text.RegularExpressions.Regex.Match(file, $@"\d\d\d\d{fileInfo.Extension}").Value;
+                var number = int.Parse(data.Remove(data.Length - fileInfo.Extension.Length));
                 backNumbers.Add(number);
             }
 
@@ -123,19 +123,19 @@ public class SharedParametersDefinitionFile
             backupNumber++;
         }
 
-        var backupFilename = System.IO.Path.Combine(fileInfo.DirectoryName, $"{fileInfo.Name.Remove(fileInfo.Name.Length - 4)}.{backupNumber.ToString("D4")}.txt");
+        var backupFilename = System.IO.Path.Combine(fileInfo.DirectoryName, $"{fileInfo.Name.Remove(fileInfo.Name.Length - fileInfo.Extension.Length)}.{backupNumber.ToString("D4")}{fileInfo.Extension}");
 
         fileInfo.CopyTo(backupFilename);
 
         backupFiles.Add(backupFilename);
 
         //remove old backups
-        var maxBackups = 5;
+        var maxBackups = 5; //number of backup files to keep
         if (backupFiles.Count > maxBackups)
         {
             backupFiles.Sort();
-            
-            //only keep the most recent 3 backups
+
+            //only keep the most recent backups
             for (int i = 0; i < backupFiles.Count - maxBackups; i++)
             {
                 System.IO.File.Delete(backupFiles[i]);
