@@ -113,7 +113,7 @@ internal partial class MainViewModel : BaseViewModel
     {
         if(NewFileName != null)
         {
-            DefFile?.SaveFile(NewFileName);
+            DefFile?.SaveFile(NewFileName, false);
             return;
         }
 

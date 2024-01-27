@@ -2,6 +2,7 @@
 using SharedParametersFile;
 using SharedParametersFile.Models;
 using Syncfusion.UI.Xaml.Grid;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 
@@ -60,12 +61,18 @@ public partial class MainView : Window
         {
             Filter = "Shared Parameter Definition File (*.txt)|*.txt",
             CheckFileExists = true,
-            Title = "Save Shared Parameter Definition File"
+            Title = "Save Shared Parameter Definition File",
         };
 
         if (dialog.ShowDialog() == true)
         {
-            _viewModel.NewFileName = $"{dialog.FileName}.txt";
+            if(dialog.FileName.EndsWith(".txt") == false)
+            {
+                dialog.FileName += ".txt";
+            }   
+
+            _viewModel.NewFileName = dialog.FileName;
+
             _viewModel.SaveDefinitionFile();
         }
     }

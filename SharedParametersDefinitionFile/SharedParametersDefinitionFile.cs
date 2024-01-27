@@ -60,7 +60,7 @@ public class SharedParametersDefinitionFile
         }
     }
 
-    public void SaveFile(string fileName = null)
+    public void SaveFile(string fileName = null, bool createBackup = true)
     {
         List<string> output = new List<string>();
 
@@ -91,9 +91,18 @@ public class SharedParametersDefinitionFile
             _definitionFileName = fileName;
         }
 
-        backUpFile(fileName);
+        if(createBackup)
+        {
+            backUpFile(fileName);
+        }
 
-        System.IO.File.WriteAllLines(fileName, output);
+        using (var writer = new StreamWriter(fileName))
+        {
+            foreach (var line in output)
+            {
+                writer.WriteLine(line);
+            }
+        }
     }
 
     private void backUpFile(string fileName)
