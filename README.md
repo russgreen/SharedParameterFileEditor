@@ -6,11 +6,12 @@
 Standalone editor for Revit shared parameter files
 ![image](https://user-images.githubusercontent.com/1886088/156920547-0b7fb0a7-09ba-40da-9388-7f5c5ffd8810.png)
 
-Parameters from a another (source) shared parameter file can be loaded and selectively merged or added to the current (target) file when GUID's in the source do not exist in the target.
+Parameters from another (source) shared parameter file can be loaded and selectively merged or added to the current (target) file when GUID's in the source do not exist in the target.
 
 ## Roadmap
 
-- [x] Limit number of backuop files saved...delete older files on save.
+- [x] Limit the number of backup files saved...delete older files on save.
+- [ ] Create a new shared parameters file from scratch
 - [ ] Revit addin to allow batch importing on shared parameters
 
 ## Syncfusion Controls
