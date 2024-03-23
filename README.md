@@ -1,6 +1,6 @@
 ![GitHub issues](https://img.shields.io/github/issues/russgreen/SharedParameterFileEditor)
 ![GitHub last commit](https://img.shields.io/github/last-commit/russgreen/SharedParameterFileEditor)
-<img src="https://img.shields.io/badge/.net-7.0-blue">
+<img src="https://img.shields.io/badge/.net-8.0-blue">
 
 # SharedParameterFileEditor
 Standalone editor for Revit shared parameter files
