@@ -96,7 +96,10 @@ public class SharedParametersDefinitionFile
             backUpFile(fileName);
         }
 
-        using (var writer = new StreamWriter(fileName))
+        using (var writer = new StreamWriter(
+            fileName,
+            false,
+            System.Text.Encoding.Unicode))
         {
             foreach (var line in output)
             {
