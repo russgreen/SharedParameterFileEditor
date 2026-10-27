@@ -1,0 +1,99 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+     xmlns:netfx="http://wixtoolset.org/schemas/v4/wxs/netfx">
+
+  <!--
+    Registry location. This MUST stay the value the previous Advanced Installer package wrote
+    (including the "Paramter" spelling) so existing installs are found and upgraded in place.
+  -->
+  <?define RegistryKey="Software\Russell Green\Shared Paramter File Editor"?>
+
+  <!--
+    The UpgradeCode MUST NEVER change. It is the code used by the previous Advanced Installer package
+    (SharedParameterFileEditor.aip), so this package upgrades existing installations.
+    The ProductCode is generated for every build.
+  -->
+  <Package Name="Shared Parameter File Editor"
+           Manufacturer="Russ Green"
+           Version="$(var.ProductVersion)"
+           UpgradeCode="B08A6D9E-A4E7-4745-A390-99A116B9334E"
+           Language="1033"
+           Scope="perMachine">
+
+    <SummaryInformation Description="Shared Parameter File Editor installer" />
+
+    <!-- AllowSameVersionUpgrades needs ICE61 suppressed in the wixproj. -->
+    <MajorUpgrade AllowSameVersionUpgrades="yes"
+                  DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+
+    <MediaTemplate EmbedCab="yes" CompressionLevel="high" />
+
+    <netfx:DotNetCompatibilityCheck Id="DotNet10Desktop"
+                                    Property="DOTNET10DESKTOP"
+                                    RuntimeType="desktop"
+                                    Version="10.0.0"
+                                    RollForward="latestMinor"
+                                    Platform="x64" />
+    <Launch Condition="Installed OR DOTNET10DESKTOP = &quot;0&quot;"
+            Message="[ProductName] requires the .NET 10 Desktop Runtime (x64). Please install it from https://dotnet.microsoft.com/download/dotnet/10.0 and run this installer again." />
+
+    <!-- ARPPRODUCTICON must be the Id of an Icon element, never a file path. -->
+    <Icon Id="SharedParameterFileEditor.ico" SourceFile="$(var.RepoRoot)SharedParameterFileEditor\Resources\spEditor.ico" />
+    <Property Id="ARPPRODUCTICON" Value="SharedParameterFileEditor.ico" />
+    <Property Id="ARPURLINFOABOUT" Value="https://github.com/russgreen/SharedParameterFileEditor/issues" />
+    <Property Id="ARPCOMMENTS" Value="Edit and maintain Revit shared parameters files outside of Revit" />
+
+    <!-- Re-use the location of a previous installation (including those made by the Advanced Installer package) -->
+    <Property Id="INSTALLFOLDER">
+      <RegistrySearch Id="PreviousInstallFolder" Root="HKLM" Key="$(var.RegistryKey)" Name="Path" Type="directory" Bitness="always64" />
+    </Property>
+
+    <!-- UI: shared template in UI.wxs, PNG art next to this file -->
+    <WixVariable Id="WixUIBannerBmp" Value="$(sys.SOURCEFILEDIR)shared-parameter-file-editor_banner.png" />
+    <WixVariable Id="WixUIDialogBmp" Value="$(sys.SOURCEFILEDIR)shared-parameter-file-editor_background.png" />
+    <UIRef Id="WixUI_Minimal" />
+
+    <!-- Install locations -->
+    <StandardDirectory Id="ProgramFiles64Folder">
+      <Directory Id="INSTALLFOLDER" Name="Shared Parameter File Editor" />
+    </StandardDirectory>
+    <StandardDirectory Id="ProgramMenuFolder" />
+    <StandardDirectory Id="DesktopFolder" />
+
+    <Feature Id="MainFeature" Title="Shared Parameter File Editor" Level="1" AllowAbsent="no">
+      <ComponentGroupRef Id="AppFiles" />
+      <ComponentGroupRef Id="AppShortcuts" />
+      <ComponentGroupRef Id="AppRegistry" />
+    </Feature>
+
+    <!-- Desktop application: the exe has its own component so the shortcuts can target it -->
+    <ComponentGroup Id="AppFiles" Directory="INSTALLFOLDER">
+      <Component Id="SharedParameterFileEditorExe">
+        <File Id="SharedParameterFileEditorExe" Source="$(var.RepoRoot)SharedParameterFileEditor\bin\x64\Release\net10.0-windows\SharedParameterFileEditor.exe" KeyPath="yes" />
+      </Component>
+
+      <Files Include="$(var.RepoRoot)SharedParameterFileEditor\bin\x64\Release\net10.0-windows\**">
+        <Exclude Files="$(var.RepoRoot)SharedParameterFileEditor\bin\x64\Release\net10.0-windows\SharedParameterFileEditor.exe" />
+      </Files>
+    </ComponentGroup>
+
+    <!-- Start menu and desktop shortcuts, keyed on an HKCU value (ICE38, ICE43) -->
+    <ComponentGroup Id="AppShortcuts" Directory="INSTALLFOLDER">
+      <Component Id="AppShortcuts">
+        <Shortcut Id="StartMenuShortcut" Directory="ProgramMenuFolder" Name="Shared Parameter File Editor"
+                  Target="[#SharedParameterFileEditorExe]" WorkingDirectory="INSTALLFOLDER" />
+        <Shortcut Id="DesktopShortcut" Directory="DesktopFolder" Name="Shared Parameter File Editor"
+                  Target="[#SharedParameterFileEditorExe]" WorkingDirectory="INSTALLFOLDER" />
+        <RemoveFolder Id="RemoveProgramMenuFolder" Directory="ProgramMenuFolder" On="uninstall" />
+        <RegistryValue Root="HKCU" Key="$(var.RegistryKey)" Name="Shortcuts" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="AppRegistry" Directory="INSTALLFOLDER">
+      <Component Id="ProductInformation">
+        <RegistryValue Root="HKLM" Key="$(var.RegistryKey)" Name="Path" Type="string" Value="[INSTALLFOLDER]" KeyPath="yes" />
+        <RegistryValue Root="HKLM" Key="$(var.RegistryKey)" Name="Version" Type="string" Value="[ProductVersion]" />
+        <CreateFolder />
+      </Component>
+    </ComponentGroup>
+  </Package>
+</Wix>

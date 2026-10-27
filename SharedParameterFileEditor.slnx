@@ -15,4 +15,9 @@
   <Project Path="SharedParametersDefinitionFile/SharedParametersDefinitionFile.csproj">
     <Platform Project="x64" />
   </Project>
+  <!-- Built by the Installer target in the Fallout build, not by the solution configurations. -->
+  <Project Path="installer/SharedParameterFileEditor.Setup.wixproj">
+    <Platform Solution="*|x64" Project="x64" />
+    <Build Solution="*|*" Project="false" />
+  </Project>
 </Solution>
