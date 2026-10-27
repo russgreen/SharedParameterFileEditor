@@ -1,0 +1,27 @@
+<Project Sdk="WixToolset.Sdk/5.0.2">
+
+  <PropertyGroup>
+    <OutputType>Package</OutputType>
+    <InstallerPlatform>x64</InstallerPlatform>
+    <SuppressValidation>false</SuppressValidation>
+    <!-- ICE61: AllowSameVersionUpgrades is deliberate so rebuilding a version still replaces it.
+         ICE69: the shortcuts live in their own HKCU keyed component and target the exe in another component of the same feature (ICE38/ICE43). -->
+    <SuppressIces>ICE61;ICE69</SuppressIces>
+
+    <!-- The Fallout build always passes -p:ProductVersion=<version>. A direct build falls back to VersionPrefix in the root Directory.Build.props. -->
+    <ProductVersion Condition="'$(ProductVersion)' == ''">$(VersionPrefix)</ProductVersion>
+
+    <OutputName>SharedParameterFileEditor.$(ProductVersion)</OutputName>
+    <OutputPath>$(MSBuildProjectDirectory)\SharedParameterFileEditor-SetupFiles\</OutputPath>
+
+    <!-- Repo root WITH the trailing backslash, so the wxs always writes $(var.RepoRoot)SharedParameterFileEditor\... -->
+    <RepoRoot>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\..\'))</RepoRoot>
+    <DefineConstants>$(DefineConstants);ProductVersion=$(ProductVersion);RepoRoot=$(RepoRoot)</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="WixToolset.UI.wixext" Version="5.0.2" />
+    <PackageReference Include="WixToolset.Netfx.wixext" Version="5.0.2" />
+  </ItemGroup>
+
+</Project>

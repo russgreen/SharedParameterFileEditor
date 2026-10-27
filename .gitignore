@@ -356,8 +356,5 @@ SyncfusionKey.txt
 ApiSecret.txt
 MeasurementId.txt
 
-# Advanced Installer
-Installer/*.back.aip
-Installer/SharedParameterFileEditor-cache/*
-Installer/SharedParameterFileEditor-SetupFiles/*
-Installer/Setup Files/*
+# WiX installer
+installer/*-SetupFiles/
